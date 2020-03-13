@@ -4,7 +4,7 @@ var flag = 0, flag1 = 0, flag2 = 0, flag3 = 0, flag4 = 0, flag5 = 0, flag6 = 0, 
 
 // To hide or show button
 function submit1() {
-    if (flag == 1 && flag1 == 1) {
+    if (flag == 1) {
         $(':input[type="submit"]').prop('disabled', false);
     } else {
         $(':input[type="submit"]').prop('disabled', true);
@@ -21,7 +21,7 @@ function fun() {
 
     } else if (fname.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
         flag = 1;
-        $(".emailval").hide();
+        document.getElementById("emailval").innerHTML ="";
     }
     else
     {

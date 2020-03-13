@@ -1,4 +1,49 @@
 <!DOCTYPE html>
+<?php
+$msg = "";
+if($_POST) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "recursion";
+
+// Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    } else {
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $password = sha1(mysqli_real_escape_string($conn, $_POST['password']));
+
+
+        $sql = "SELECT * from users where user_email='$email'";
+        $result = $conn->query($sql);
+        $msg = "";
+        if ($result->num_rows == 0) {
+            $msg = "No user exists with provided Email ID.";
+        } else {
+            //user_address
+            //user_email
+            //user_id
+            //user_mobile_number
+            //user_name
+            //user_password
+            //user_type
+            $sql = "SELECT * from users where user_email='$email' and user_password='$password'";
+            $result = $conn->query($sql);
+            if ($result->num_rows ==0) {
+                $msg = "Incorrect Email or Password.";
+            }else{
+                $msg = "Logged In!";
+            }
+        }
+
+    }
+    $conn->close();
+}
+?>
 <html>
 
 <head>
@@ -15,11 +60,7 @@
     <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/validate.js"></script>
-    <script>
-        $(document).ready(function() {
-            submit1();
-        });
-    </script>
+
 </head>
 
 <body id="page-top">
@@ -27,14 +68,14 @@
     include("header_nav.php");
     ?>
     <div class="login-dark" style="background-image: url(&quot;assets/img/intro-bg.jpg&quot;);height: 700px;">
-        <form method="post" style="background-color: rgb(38,40,41);">
+        <form method="post" style="background-color: rgb(38,40,41);" action="login.php">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline" style="color: #fafafa;"></i></div>
-            <div class="form-group"><input class="form-control" type="email" id="email" placeholder="Email" inputmode="email" onblur="fun()"><div id="emailval"></div></div>
+            <div class="form-group"><input class="form-control" type="email" name="email" id="email" placeholder="Email" inputmode="email" onblur=""><div id="emailval"></div></div>
 
-            <div class="form-group"><input class="form-control" type="password" id="password" placeholder="Password" onblur="fun2()"><div id="passval"></div></div>
-
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" id="login" style="background-color: rgb(180,180,180);">Log In</button></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" id="password" placeholder="Password"><div id="passval"></div></div>
+            <div id="result" style="color: red"><?php echo $msg; ?></div>
+            <div class="form-group"><input class="btn btn-primary btn-block" type="submit" id="login" style="background-color: rgb(180,180,180);" value="Log In"></div>
         </form>
     </div>
     <footer>
@@ -47,10 +88,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="assets/js/grayscale.js"></script>
 </body>
-<script>
-    $(document).ready(function(){
-        $(".emailval").hide();
-        $(".passval").hide();
-    });
-</script>
+
 </html>
