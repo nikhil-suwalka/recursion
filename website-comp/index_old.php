@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
 <?php
 if(!isset($_SESSION["user_type"]))
     session_start();
 ?>
+<html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -33,29 +34,50 @@ else if($_SESSION["user_type"]==2)
 else if($_SESSION["user_type"]==3)
     include("header_nav_owner.php");
 ?>
-<?php
-function checkDevice() {
-// checkDevice() : checks if user device is phone, tablet, or desktop
-// RETURNS 0 for desktop, 1 for mobile, 2 for tablets
+<video id="preview" class="p-1 border" style="position: fixed;right: 0;bottom: 0;min-width: 100%;min-height: 100%;"></video>
+<section id="scanner" class="content-section text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+                <div class="col-sm-12">
 
-    if (is_numeric(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "mobile"))) {
-        return is_numeric(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "tablet")) ? 2 : 1 ;
-    } else {
-        return 0;
-    }
-}
+                </div>
+                <script type="text/javascript">
+                    var scanner = new Instascan.Scanner({
+                        video: document.getElementById('preview'),
+                        scanPeriod: 5,
+                        mirror: false
+                    });
+                    scanner.addListener('scan', function (content) {
+                        alert(content);
+                        //window.location.href=content;
+                    });
+                    Instascan.Camera.getCameras().then(function (cameras) {
+                        if (cameras.length > 0) {
+                            scanner.start(cameras[1]);
+                            $('[name="options"]').on('change', function () {
+                                if (cameras[0] != "") {
+                                    scanner.start(cameras[0]);
+                                } else {
+                                    alert('No Front camera found!');
+                                }
+                            });
+                        } else {
+                            console.error('No cameras found.');
+                            alert('No cameras found.');
+                        }
+                    }).catch(function (e) {
+                        console.error(e);
+                        alert(e);
+                    });
+                </script>
+            </div>
 
-$deviceType = checkDevice();
-if ($deviceType!=0) {
-    include("bg.php");
-} else {
-    include("QR.php");
-}
-?>
-
-<div class="map-clean" id="alert">
-
-</div>
+        </div>
+    </div>
+</section>
+<div class="map-clean"></div>
 <footer style="position: fixed;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
