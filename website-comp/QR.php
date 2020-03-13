@@ -1,4 +1,5 @@
-<video id="preview" class="p-1 border" style="position: fixed;right: 0;bottom: 0;min-width: 100%;min-height: 100%;"></video>
+<video id="preview" class="p-1 border"
+       style="position: fixed;right: 0;bottom: 0;min-width: 100%;min-height: 100%;"></video>
 <section id="scanner" class="content-section text-center">
     <div class="container-fluid">
         <div class="row">
@@ -14,8 +15,16 @@
                         mirror: false
                     });
                     scanner.addListener('scan', function (content) {
-                        alert(content);
-                        //window.location.href=content;
+                        $.ajax({
+                            url: content,
+                            type: 'GET',
+                            success:function(result){
+                                if(result){
+                                    document.getElementById("alert").innerHTML="Hello";
+                                    alert("Hellow");
+                                }
+                            }
+                        });
                     });
                     Instascan.Camera.getCameras().then(function (cameras) {
                         if (cameras.length > 0) {
