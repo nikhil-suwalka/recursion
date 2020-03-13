@@ -23,6 +23,7 @@ if ($numrows > 0) {
         //Fetch object array
         while ($row = $result->fetch_assoc()) {
             $name = $row['type_name'];
+            $loc = $row['location'];
 
         }
         //Free Result set
@@ -42,19 +43,20 @@ if ($_POST) { //to check if form is submitted
 //Assign get variable
 
     $name = mysqli_real_escape_string($mysqli, $_POST["type_name"]);
-
+    $loc = mysqli_real_escape_string($mysqli, $_POST["type_loc"]);
 
     //Create customer update
     $query = "UPDATE product_type
               SET
-              type_name = '$name'
+              type_name = '$name',
+              location = '$loc'
               WHERE type_id= $type_id";
 
     echo "<br>$query<br>";
     $mysqli->query($query) or die($mysqli->error . " " . __LINE__);
 
     $msg = "Store details updated";
-    header("Location:index.php?msg=" . urlencode($msg) . "&category_id=". $_GET['category_id'] . "&store_id=". $_GET['store_id']);
+    header("Location:index.php?msg=" . urlencode($msg) . "&category_id=" . $_GET['category_id'] . "&store_id=" . $_GET['store_id']);
     exit;
 
 
@@ -104,7 +106,8 @@ if ($_POST) { //to check if form is submitted
                 <h2>Edit Customers </h2>
 
 
-                <form method="post" action="edit_type.php?category_id=<?=$category_id?>&store_id=<?=$store_id?>&type_id=<?=$type_id?>">
+                <form method="post"
+                      action="edit_type.php?category_id=<?= $category_id ?>&store_id=<?= $store_id ?>&type_id=<?= $type_id ?>">
 
                     <?php if ($numrows > 0) {
 
@@ -115,8 +118,11 @@ if ($_POST) { //to check if form is submitted
                             <input name="type_name" type="text" class="form-control" value="<?php echo $name ?>"
                                    placeholder="Enter Sub-category Name">
                         </div>
-
-
+                        <div class="form-group">
+                            <label>Location of the Sub-category in the store</label>
+                            <input name="type_loc" type="text" class="form-control"
+                                   placeholder="Format: A[aisle no]_S[shelf no]" value="<?php echo $loc ?>">
+                        </div>
 
 
                         <input type="submit" class="btn btn-default" value="Update Sub-category"/>

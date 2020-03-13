@@ -8,9 +8,9 @@ $category_id = $_GET['category_id'];
 $store_id = $_GET['store_id'];
 if ($_POST) { //to check if form is submitted
     $name = mysqli_real_escape_string($mysqli, $_POST["type_name"]);
-
-    $query = "INSERT INTO product_type (type_name, category_id, store_id)
-              VALUES ('$name', $category_id, $store_id)";
+    $loc = mysqli_real_escape_string($mysqli, $_POST["type_loc"]);
+    $query = "INSERT INTO product_type (type_name,location, category_id, store_id)
+              VALUES ('$name', '$loc', $category_id, $store_id)";
 
     //Run query
 
@@ -71,6 +71,10 @@ if ($_POST) { //to check if form is submitted
                         <input name="type_name" type="text" class="form-control" placeholder="Enter Sub-category Name">
                     </div>
 
+                    <div class="form-group">
+                        <label>Location of the Sub-category in the store</label>
+                        <input name="type_loc" type="text" class="form-control" placeholder="Format: A[aisle no]_S[shelf no]">
+                    </div>
 
                     <input type="submit" class="btn btn-default" value="Add Customer"/>
                 </form>

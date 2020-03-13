@@ -1,19 +1,20 @@
 <?php include('includes/database.php'); ?>
 <?php
 //Assign get variable
-$store_id = $_GET['id'];
 
 
 //TODO: get user id form session
 $userid = 2;
-
+$type_id = $_GET['type_id'];
+$store_id = $_GET['store_id'];
+$product_id = $_GET['product_id'];
 //Create customer select query
 
 
 //Create the select query
 $query = "SELECT * 
-          FROM store
-          WHERE store.user_id = $userid and store.store_id = $store_id";
+          FROM product
+          WHERE product.product_id = $product_id";
 
 $result = $mysqli->query($query) or die ($mysqli->error . " " . __LINE__);
 $numrows = $result->num_rows;
@@ -22,10 +23,11 @@ if ($numrows > 0) {
     if ($result = $mysqli->query($query)) {
         //Fetch object array
         while ($row = $result->fetch_assoc()) {
-            $name = $row['store_name'];
-            $store_location = $row['store_location'];
-            $store_contact_number = $row['store_contact_number'];
-            $store_email = $row['store_email'];
+            $name = $row['product_name'];
+            $product_price = $row['product_price'];
+            $product_brand = $row['product_brand'];
+            $product_stock = $row['product_stock'];
+            $product_details = $row['details'];
 
         }
         //Free Result set
@@ -45,25 +47,27 @@ if ($_POST) { //to check if form is submitted
 //Assign get variable
     $id = $_GET['id']; //get user id form url
 
-    $name = mysqli_real_escape_string($mysqli, $_POST["store_name"]);
-    $location = mysqli_real_escape_string($mysqli, $_POST["location"]);
-    $email = mysqli_real_escape_string($mysqli, $_POST["email"]);
-    $number = md5(mysqli_real_escape_string($mysqli, $_POST["contact_number"])); // md5  -to encrypt the password
+    $name = mysqli_real_escape_string($mysqli, $_POST["product_name"]);
+    $price = mysqli_real_escape_string($mysqli, $_POST["product_price"]);
+    $brand = mysqli_real_escape_string($mysqli, $_POST["product_brand"]);
+    $stock = mysqli_real_escape_string($mysqli, $_POST["product_stock"]);
+    $details = mysqli_real_escape_string($mysqli, $_POST["product_details"]);
 
 
     //Create customer update
-    $query = "UPDATE store
+    $query = "UPDATE product
               SET
-              store_name = '$name',
-              store_location = '$store_location',
-              store_email = '$store_email',
-              store_contact_number = '$store_contact_number'
-              WHERE store_id=$store_id";
+              product_name = '$name',
+              product_price = $price,
+              product_brand = '$brand',
+              product_stock = '$stock',
+              details = '$details'
+              WHERE product_id=$product_id";
 
     $mysqli->query($query) or die($mysqli->error . " " . __LINE__);
 
-    $msg = "Store details updated";
-    header("Location:index.php?msg=" . urlencode($msg) . "");
+    $msg = "Product details updated";
+    header("Location: index.php?msg=" . urlencode($msg) . "&type_id=" . $type_id . "&store_id=". $store_id); //?msg to show some message in index
     exit;
 
 
@@ -113,35 +117,40 @@ if ($_POST) { //to check if form is submitted
                 <h2>Edit Customers </h2>
 
 
-                <form method="post" action="edit_store.php?id=<?php echo $store_id; ?>">
+                <form method="post" action="edit_product.php?store_id=<?=$_GET['store_id']?>&type_id=<?=$_GET['type_id']?>&product_id=<?=$_GET['product_id']?>">
 
                     <?php if ($numrows > 0) {
 
 
                         ?>
                         <div class="form-group">
-                            <label>Name of the Store</label>
-                            <input name="store_name" type="text" class="form-control" value="<?php echo $name ?>"
+                            <label>Name of the product</label>
+                            <input name="product_name" type="text" class="form-control" value="<?php echo $name ?>"
                                    placeholder="Enter First Name">
                         </div>
 
 
                         <div class="form-group">
-                            <label>Store location</label>
-                            <input name="location" type="text" class="form-control"
-                                   value="<?php echo $store_location ?>"
+                            <label>Product price</label>
+                            <input name="product_price" type="text" class="form-control"
+                                   value="<?php echo $product_price ?>"
                                    placeholder="Enter Last Name">
                         </div>
 
                         <div class="form-group">
-                            <label>Email Address</label>
-                            <input name="email" type="email" class="form-control" value="<?php echo $store_email ?>"
+                            <label>Product brand</label>
+                            <input name="product_brand" type="text" class="form-control" value="<?php echo $product_brand ?>"
                                    placeholder="Enter Email">
                         </div>
                         <div class="form-group">
-                            <label>Contact Number</label>
-                            <input name="contact_number" type="password" class="form-control"
-                                   value="<?php echo $store_contact_number ?>" placeholder="Enter Password">
+                            <label>Product stock</label>
+                            <input name="product_stock" type="number" class="form-control"
+                                   value="<?php echo $product_stock ?>" placeholder="Enter Password">
+                        </div>
+                        <div class="form-group">
+                            <label>Product details</label>
+                            <input name="product_details" type="text" class="form-control"
+                                   value="<?php echo $product_details ?>" placeholder="Enter Password">
                         </div>
 
                         <input type="submit" class="btn btn-default" value="Update Customer"/>

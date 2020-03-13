@@ -129,7 +129,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_b
 -- Table structure for table `product_location`
 --
 
-DROP TABLE IF EXISTS `product_location`;
+DROP TABLE IF EXISTS producttype_location;
 CREATE TABLE IF NOT EXISTS `product_location` (
   `plid` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,

@@ -1,46 +1,44 @@
-
 <?php include('includes/database.php'); ?>
 <?php
 
 
-$store_id = $_GET['id'];
 //TODO: get user id form session
 $userid = 2;
+$type_id = $_GET['type_id'];
+$store_id = $_GET['store_id'];
+$product_id = $_GET['product_id'];
 
+$query = "SELECT product_name FROM product WHERE product_id = $product_id";
 
-$query = "SELECT store_name, store_location FROM store WHERE store_id = '$store_id' and user_id = $userid";
-
-$result = $mysqli->query($query) or die ($mysqli->error." ".__LINE__);
+$result = $mysqli->query($query) or die ($mysqli->error . " " . __LINE__);
 if ($result = $mysqli->query($query)) {
     while ($row = $result->fetch_assoc()) {
-        $store_name = $row["store_name"];
-        $store_location = $row["store_location"];
+        $product_name = $row["product_name"];
     }
 }
 
-if (isset($_POST['Yes'])){
+if (isset($_POST['Yes'])) {
 
-    $query = "DELETE FROM store WHERE store_id = $store_id AND user_id = $userid";
-    $mysqli ->query($query) or die($mysqli->error. " ".__LINE__);
+    $query = "DELETE FROM product WHERE product_id = $product_id";
+    $mysqli->query($query) or die($mysqli->error . " " . __LINE__);
 
 
-    $msg = "Store Removed";
-    header("Location:index.php?msg=".urlencode($msg)."");
+    $msg = "Product Removed";
+    header("Location: index.php?msg=" . urlencode($msg) . "&type_id=" . $type_id . "&store_id=" . $store_id); //?msg to show some message in index
     exit;
 
 }
 
 
-if (isset($_POST['No'])){
+if (isset($_POST['No'])) {
 
-    $msg = "Store Not Removed";
-    header("Location:index.php?msg=".urlencode($msg)."");
+    $msg = "Product Not Removed";
+    header("Location: index.php?msg=" . urlencode($msg) . "&type_id=" . $type_id . "&store_id=" . $store_id); //?msg to show some message in index
     exit;
 
 }
 
 ?>
-
 
 
 <!doctype html>
@@ -84,16 +82,16 @@ if (isset($_POST['No'])){
             <div class="col-lg-12">
                 <h2>Remove Customer </h2>
 
-                <form method="post" action="delete_store.php?id=<?php echo $store_id; ?>">
+                <form method="post"
+                      action="delete_product.php?store_id=<?= $_GET['store_id'] ?>&type_id=<?= $_GET['type_id'] ?>&product_id=<?= $_GET['product_id'] ?>">
 
 
-        <br><br>
+                    <br><br>
 
-        <h3> Do you want to remove <?php echo $store_name . " located at " . $store_location ?>  </h3>
-                    <form action="delete_store.php" method="post">
-                    <input type="submit" name="Yes" value="Yes" class="btn-success" >
-                    <input type="submit" name="No" value="No" class="btn-link" >
-                    </form>
+                    <h3> Do you want to remove <?php echo $product_name ?>  </h3>
+                    <input type="submit" name="Yes" value="Yes" class="btn-success">
+                    <input type="submit" name="No" value="No" class="btn-link">
+                </form>
 
             </div>
         </div>

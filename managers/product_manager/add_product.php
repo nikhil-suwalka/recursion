@@ -3,22 +3,25 @@
 
 //TODO: get from cookies
 $userid = 2;
+$type_id = $_GET['type_id'];
+$store_id = $_GET['store_id'];
 if ($_POST) { //to check if form is submitted
-    $name = mysqli_real_escape_string($mysqli, $_POST["store_name"]);
-    $location = mysqli_real_escape_string($mysqli, $_POST["location"]);
-    $email = mysqli_real_escape_string($mysqli, $_POST["email"]);
-    $number = mysqli_real_escape_string($mysqli, $_POST["contact_number"]);
+    $name = mysqli_real_escape_string($mysqli, $_POST["product_name"]);
+    $price = mysqli_real_escape_string($mysqli, $_POST["product_price"]);
+    $brand = mysqli_real_escape_string($mysqli, $_POST["product_brand"]);
+    $stock = mysqli_real_escape_string($mysqli, $_POST["product_stock"]);
+    $details = mysqli_real_escape_string($mysqli, $_POST["product_details"]);
 
-    $query = "INSERT INTO store (store_name, store_location, store_contact_number, store_email, user_id)
-              VALUES ('$name', '$location', '$number', '$email', $userid)";
+    $query = "INSERT INTO product (product_name, product_price, product_brand, product_stock, details, type_id, store_id)
+              VALUES ('$name', $price, '$brand', $stock, '$details', $type_id, $store_id)";
 
     //Run query
 
     $mysqli->query($query) or die($mysqli->error . " " . __LINE__);
 
 
-    $msg = "Store Added";
-    header("Location: index.php?msg=" . urlencode($msg) . ""); //?msg to show some message in index
+    $msg = "Product Added";
+    header("Location: index.php?msg=" . urlencode($msg) . "&type_id=" . $type_id . "&store_id=". $store_id); //?msg to show some message in index
     exit;
 
 }
@@ -55,7 +58,7 @@ if ($_POST) { //to check if form is submitted
                 </li>
             </ul>
         </nav>
-        <h3 class="text-muted">Store Manager</h3>
+        <h3 class="text-muted">Product Manager</h3>
     </header>
 
     <main role="main">
@@ -65,28 +68,32 @@ if ($_POST) { //to check if form is submitted
             <div class="col-lg-12">
                 <h2>Add Stores</h2>
 
-                <form method="post" action="add_store.php">
+
+                <form method="post" action="add_product.php?store_id=<?=$_GET['store_id']?>&type_id=<?=$_GET['type_id']?>">
                     <div class="form-group">
-                        <label>Name of the Store</label>
-                        <input name="store_name" type="text" class="form-control" placeholder="Enter First Name">
+                        <label>Name of the product</label>
+                        <input name="product_name" type="text" class="form-control" placeholder="Enter Product Name">
                     </div>
 
                     <div class="form-group">
-                        <label>Store location</label>
-                        <input name="location" type="text" class="form-control" placeholder="Enter Last Name">
+                        <label>Product price</label>
+                        <input name="product_price" type="text" class="form-control" placeholder="Enter Last Name">
                     </div>
 
                     <div class="form-group">
-                        <label>Email Address</label>
-                        <input name="email" type="email" class="form-control" placeholder="Enter Email">
+                        <label>Product brand</label>
+                        <input name="product_brand" type="text" class="form-control" placeholder="Enter Email">
                     </div>
                     <div class="form-group">
-                        <label>Contact Number</label>
-                        <input name="contact_number" type="password" class="form-control" placeholder="Enter Password">
+                        <label>Product stock</label>
+                        <input name="product_stock" type="number" class="form-control" placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label>Product details</label>
+                        <input name="product_details" type="text" class="form-control" placeholder="Enter Password">
                     </div>
 
-
-                    <input type="submit" class="btn btn-default" value="Add Customer"/>
+                    <input type="submit" class="btn btn-default" value="Add Product"/>
                 </form>
 
 

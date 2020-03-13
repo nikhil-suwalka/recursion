@@ -80,6 +80,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                 <table class="table table-striped">
                     <tr>
                         <th>Name</th>
+                        <th>Location</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -94,6 +95,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                         //Display customer info
                         $output = "<tr>";
                         $output .= "<td>" . $row["type_name"] . "</td>";
+                        $output .= "<td>" . $row["location"] . "</td>";
 
                         $output .= "<td><a href='../product_manager/index.php?type_id=" . $row['type_id'] . "&store_id=" . $storeid . "' class='btn btn-primary btn-sm'>Products </a></td>";
                         $output .= "<td><a href='edit_type.php?type_id=" . $row['type_id'] . "&store_id=" . $storeid . "&category_id=" . $categoryid . "' class='btn btn-primary btn-sm'>Edit </a></td>";

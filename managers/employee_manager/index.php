@@ -2,17 +2,13 @@
 <?php
 
 //TODO: get from session
-$userid = 2;
 
+$store_id = $_GET['store_id'];
 //Create the select query
-$query = "SELECT 
-              store.store_id,
-              store.store_name,
-              store.store_location,
-              store.store_contact_number,
-              store.store_email
-              FROM recursion.store
-              WHERE store.user_id = $userid";
+$query = "SELECT * 
+        FROM recursion.employee_store, users 
+        WHERE employee_store.store_id = $store_id AND employee_store.user_id = users.user_id";
+
 
 //Get result
 $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LINE__ shows the line no. we are getting the error at
@@ -26,7 +22,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>CManager | Dashboard</title>
+    <title>EManager | Dashboard</title>
     <style type="text/css">
 
 
@@ -54,26 +50,22 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                     <a class="nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="add_store.php">Add Customer</a>
+                    <a class="nav-link" href="add_employee.php?store_id=<?=$store_id?>">Add Employee</a>
                 </li>
             </ul>
         </nav>
-        <h3 class="text-muted">Store CManager</h3>
+        <h3 class="text-muted">Employee Manager</h3>
     </header>
 
     <main role="main">
-
-
         <div class="row marketing">
             <div class="col-lg-12">
                 <?php
                 if (isset($_GET["msg"]))
                     echo "<div class = msg>" . $_GET["msg"] . "</div>";
                 ?>
-                <h2> Stores </h2>
-
+                <h2> Employees </h2>
                     <?php
-
                     //Check if at least 1 row is found
                     $finalResult = array();
                     if ($result->num_rows > 0) {
@@ -84,9 +76,8 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Mobile no.</th>
                         <th>Address</th>
-                        <th>Contact no.</th>
-                        <th></th>
                         <th></th>
                         <th></th>
                     </tr><?php
@@ -99,13 +90,12 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                         while ($row = mysqli_fetch_array($result)) {
                             //Display customer info
                             $output = "<tr>";
-                            $output .= "<td>" . $row["store_name"] . "</td>";
-                            $output .= "<td>" . $row["store_email"] . "</td>";
-                            $output .= "<td>" . $row["store_location"] .  "</td>";
-                            $output .= "<td>" . $row["store_contact_number"] . "</td>";
-                            $output .= "<td><a href='../employee_manager/index.php?store_id=" . $row['store_id'] . "' class='btn btn-primary btn-sm'>Employees </a></td>";
-                            $output .= "<td><a href='edit_store.php?id=" . $row['store_id'] . "' class='btn btn-primary btn-sm'>Edit </a></td>";
-                            $output .= "<td><a href='delete_store.php?id=" . $row['store_id'] . "' class='btn btn-primary btn-sm'>Remove </a></td>";
+                            $output .= "<td>" . $row["user_name"] . "</td>";
+                            $output .= "<td>" . $row["user_email"] . "</td>";
+                            $output .= "<td>" . $row["user_mobile_number"] .  "</td>";
+                            $output .= "<td>" . $row["user_address"] . "</td>";
+                            $output .= "<td><a href='edit_employee.php?id=" . $row['user_id']."&store_id=". $store_id . "' class='btn btn-primary btn-sm'>Edit </a></td>";
+                            $output .= "<td><a href='delete_employee.php?id=" . $row['user_id']."&store_id=". $store_id ."' class='btn btn-primary btn-sm'>Remove </a></td>";
 
                             $output .= "</tr>";
 
@@ -129,7 +119,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                         }
 
                     } else
-                        echo "<span style='color:red;'>No stores found!!</span>";
+                        echo "<span style='color:red;'>No Employees found!!</span>";
 
                     ?>
 
@@ -142,7 +132,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
     </main>
 
     <footer class="footer">
-        <p>&copy; Company 2017</p>
+        <p><center>&copy; Store 2020</center></p>
     </footer>
 
 </div> <!-- /container -->

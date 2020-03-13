@@ -51,7 +51,8 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                     <a class="nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="add_product.php">Add Product</a>
+                    <a class="nav-link" href="add_product.php?type_id=<?= $type_id ?>&store_id=<?= $storeid ?>">Add
+                        Product</a>
                 </li>
             </ul>
         </nav>
@@ -102,8 +103,8 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                         $output .= "<td>" . $row["product_stock"] . "</td>";
                         $output .= "<td>" . $row["details"] . "</td>";
 
-                        $output .= "<td><a href='edit_product.php?product_id=" . $row['product_id'] . "' class='btn btn-primary btn-sm'>Edit </a></td>";
-                        $output .= "<td><a href='delete_product.php?product_id=" . $row['product_id'] . "' class='btn btn-primary btn-sm'>Remove </a></td>";
+                        $output .= "<td><a href='edit_product.php?product_id=" . $row['product_id'] . "&store_id=$storeid&type_id=$type_id" . "' class='btn btn-primary btn-sm'>Edit </a></td>";
+                        $output .= "<td><a href='delete_product.php?product_id=" . $row['product_id'] . "&store_id=$storeid&type_id=$type_id" . "' class='btn btn-primary btn-sm'>Remove </a></td>";
 
                         $output .= "</tr>";
 
