@@ -48,7 +48,7 @@ if (isset($_POST['No'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>CManager | Remove Customer</title>
+    <title>PManager | Remove Product</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -67,11 +67,11 @@ if (isset($_POST['No'])) {
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="add_store.php">Add Store</a>
+                    <a class="nav-link " href="delete_product.php">Delete Product</a>
                 </li>
             </ul>
         </nav>
-        <h3 class="text-muted">Store CManager</h3>
+        <h3 class="text-muted">Store PManager</h3>
     </header>
 
 
@@ -80,7 +80,7 @@ if (isset($_POST['No'])) {
 
         <div class="row marketing">
             <div class="col-lg-12">
-                <h2>Remove Customer </h2>
+                <h2>Remove Product </h2>
 
                 <form method="post"
                       action="delete_product.php?store_id=<?= $_GET['store_id'] ?>&type_id=<?= $_GET['type_id'] ?>&product_id=<?= $_GET['product_id'] ?>">

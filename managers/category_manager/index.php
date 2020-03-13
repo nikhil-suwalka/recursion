@@ -68,7 +68,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                 if (isset($_GET["msg"]))
                     echo "<div class = msg>" . $_GET["msg"] . "</div>";
                 ?>
-                <h2> Stores </h2>
+                <h2> Categories </h2>
 
                 <?php
 
@@ -118,7 +118,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                     }
 
                     } else
-                        echo "<span style='color:red;'>No stores found!!</span>";
+                        echo "<span style='color:red;'>No categories found!!</span>";
 
                     ?>
 
@@ -131,7 +131,9 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
     </main>
 
     <footer class="footer">
-        <p>&copy; Company 2017</p>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;Store 2020</p>
+        </div>
     </footer>
 
 </div> <!-- /container -->

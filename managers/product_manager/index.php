@@ -23,7 +23,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>CManager | Dashboard</title>
+    <title>PManager | Dashboard</title>
     <style type="text/css">
 
 
@@ -56,7 +56,7 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
                 </li>
             </ul>
         </nav>
-        <h3 class="text-muted">Store CManager</h3>
+        <h3 class="text-muted">Store PManager</h3>
     </header>
 
     <main role="main">

@@ -132,7 +132,9 @@ $result = $mysqli->query($query) or die($mysqli->error . " " . __LINE__); //__LI
     </main>
 
     <footer class="footer">
-        <p><center>&copy; Store 2020</center></p>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;Store 2020</p>
+        </div>
     </footer>
 
 </div> <!-- /container -->

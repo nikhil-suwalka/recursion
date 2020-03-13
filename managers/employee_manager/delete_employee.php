@@ -99,7 +99,9 @@ if (isset($_POST['No'])) {
 
     </main>
     <footer class="footer">
-        <p><center>&copy; Store 2020</center></p>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;Store 2020</p>
+        </div>
     </footer>
 </div>
 </body>

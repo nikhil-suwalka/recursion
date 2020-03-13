@@ -84,7 +84,7 @@ if ($_POST) { //to check if form is submitted
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>CManager | Edit Customer</title>
+    <title>PManager | Edit Product</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -102,11 +102,11 @@ if ($_POST) { //to check if form is submitted
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="add_customer.php">Add Customer</a>
+                    <a class="nav-link active" href="edit_product.php">Edit Product</a>
                 </li>
             </ul>
         </nav>
-        <h3 class="text-muted">Store CManager</h3>
+        <h3 class="text-muted">Store PManager</h3>
     </header>
 
     <main role="main">
@@ -114,7 +114,7 @@ if ($_POST) { //to check if form is submitted
 
         <div class="row marketing">
             <div class="col-lg-12">
-                <h2>Edit Customers </h2>
+                <h2>Edit Products </h2>
 
 
                 <form method="post" action="edit_product.php?store_id=<?=$_GET['store_id']?>&type_id=<?=$_GET['type_id']?>&product_id=<?=$_GET['product_id']?>">
@@ -126,7 +126,7 @@ if ($_POST) { //to check if form is submitted
                         <div class="form-group">
                             <label>Name of the product</label>
                             <input name="product_name" type="text" class="form-control" value="<?php echo $name ?>"
-                                   placeholder="Enter First Name">
+                                   placeholder="Enter Product's Name">
                         </div>
 
 
@@ -134,26 +134,26 @@ if ($_POST) { //to check if form is submitted
                             <label>Product price</label>
                             <input name="product_price" type="text" class="form-control"
                                    value="<?php echo $product_price ?>"
-                                   placeholder="Enter Last Name">
+                                   placeholder="Enter Product price">
                         </div>
 
                         <div class="form-group">
                             <label>Product brand</label>
                             <input name="product_brand" type="text" class="form-control" value="<?php echo $product_brand ?>"
-                                   placeholder="Enter Email">
+                                   placeholder="Enter Product Brand">
                         </div>
                         <div class="form-group">
                             <label>Product stock</label>
                             <input name="product_stock" type="number" class="form-control"
-                                   value="<?php echo $product_stock ?>" placeholder="Enter Password">
+                                   value="<?php echo $product_stock ?>" placeholder="Enter Product Stock">
                         </div>
                         <div class="form-group">
                             <label>Product details</label>
                             <input name="product_details" type="text" class="form-control"
-                                   value="<?php echo $product_details ?>" placeholder="Enter Password">
+                                   value="<?php echo $product_details ?>" placeholder="Enter Product Details">
                         </div>
 
-                        <input type="submit" class="btn btn-default" value="Update Customer"/>
+                        <input type="submit" class="btn btn-default" value="Update Product"/>
 
 
                         <?php
@@ -170,7 +170,9 @@ if ($_POST) { //to check if form is submitted
     </main>
 
     <footer class="footer">
-        <p>&copy; Company 2017</p>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;Store 2020</p>
+        </div>
     </footer>
 
 </div> <!-- /container -->
