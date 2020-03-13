@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <?php
+
+if (!isset($_SESSION))
+    session_start();
+
 $msg = "";
 if($_POST) {
     $servername = "localhost";
@@ -71,7 +75,14 @@ if($_POST) {
 
 <body id="page-top">
 <?php
-include("header_nav.php");
+if(!$_SESSION)
+    include("header_nav.php");
+else if($_SESSION["user_type"]==1)
+    include("header_nav_user.php");
+else if($_SESSION["user_type"]==2)
+    include("header_nav_emp.php");
+else if($_SESSION["user_type"]==3)
+    include("header_nav_owner.php");
 ?>
 <div class="map-clean"></div>
 <div class="register-photo" style="background-color: rgb(0,0,0);">

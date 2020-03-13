@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+if(!isset($_SESSION["user_type"]))
+    session_start();
+?>
 <html>
 
 <head>
@@ -21,7 +25,14 @@
 
 <body id="page-top">
 <?php
-include("header_nav.php");
+if(!isset($_SESSION["user_type"]))
+    include("header_nav.php");
+else if($_SESSION["user_type"]==1)
+    include("header_nav_user.php");
+else if($_SESSION["user_type"]==2)
+    include("header_nav_emp.php");
+else if($_SESSION["user_type"]==3)
+    include("header_nav_owner.php");
 ?>
 <video id="preview" class="p-1 border" style="position: fixed;right: 0;bottom: 0;min-width: 100%;min-height: 100%;"></video>
 <section id="scanner" class="content-section text-center">
