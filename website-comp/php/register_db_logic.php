@@ -4,12 +4,8 @@ $username = "root";
 $password = "";
 $dbname = "recursion";
 
-
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-
 
 // Check connection
 if ($conn->connect_error) {
@@ -33,7 +29,7 @@ if ($conn->connect_error) {
         //user_name
         //user_password
         //user_type
-        $sql = "INSERT INTO users ('user_address','user_email','user_mobile_number','user_name','user_password','user_type') VALUES('$add','$email','$pno','$f_name','$add',1)";
+        $sql = "INSERT INTO users (user_address,user_email,user_mobile_number,user_name,user_password,user_type) VALUES('$add','$email','$pno','$f_name','$add',1)";
         $conn->query($sql);
         echo 1;
     }

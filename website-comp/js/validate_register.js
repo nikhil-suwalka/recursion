@@ -5,9 +5,9 @@ var flag = 0, flag1 = 0, flag2 = 0, flag3 = 0, flag4 = 0, flag5 = 0, flag6 = 0, 
 // To hide or show button
 function submit1() {
     if (flag == 1 && flag1 == 1 && flag101==1 && flag103==1) {
-        $(':button').prop('disabled', false);
+        $(':input[type="submit"]').prop('disabled', false);
     } else {
-        $(':button').prop('disabled', true);
+        $(':input[type="submit"]').prop('disabled', true);
     }
 }
 
