@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+session_start();
 $msg = "";
 if($_POST) {
     $servername = "localhost";
@@ -35,8 +36,13 @@ if($_POST) {
             $result = $conn->query($sql);
             if ($result->num_rows ==0) {
                 $msg = "Incorrect Email or Password.";
+                session_destroy();
             }else{
                 $msg = "Logged In!";
+                $_SESSION["user_id"]=$result["user_id"];
+                $_SESSION["user_email"]=$result["user_email"];
+                $_SESSION["user_type"]=$result["user_id"];
+                header("Location: index.php");
             }
         }
 
