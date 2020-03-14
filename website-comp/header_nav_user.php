@@ -15,7 +15,7 @@ if(!isset($_SESSION))
                 <div class="dropdown-menu dropdown-menu-left" role="menu"
                      style="min-width: -webkit-max-content;right: 0;left: auto;padding-left: 10px;padding-right: 10px;background-color: rgba(125, 125, 125, 0.3);">
                     <p style="margin-left: 10px;margin-top:30px;color: white;">Welcome <?php echo $_SESSION["user_name"]?><hr style="background-color: white"></p>
-                    <a class="dropdown-item text-info" role="presentation" href="">ORDER HISTORY</a><a
+                    <a class="dropdown-item text-info" role="presentation" href="Order_History.php">ORDER HISTORY</a><a
                         class="dropdown-item text-info" role="presentation" href="php/session_destroy.php">LOGOUT</a></div>
             </div>
         </div>
