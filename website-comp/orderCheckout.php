@@ -111,14 +111,13 @@ else if ($_SESSION["user_type"] == 3)
 <script>
     function pending2successful(id){
         $.ajax({
-            url: 'getAllType_JSON.php',
+            url: 'php/pending2successful.php',
             type: 'GET',
             data: {
-                cat_id: cat_id,
-                store_id: store_id
+                order_id: id
             },
             success:function(result){
-                alert(result);
+                location.reload();
             }
         });
     }
